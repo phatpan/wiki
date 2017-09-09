@@ -10,7 +10,10 @@
   </thead>
   <tbody>
       <tr *ngFor="let data of wikiList | async">
-          <td><button type="button" (click)="delWiki(data)" >Delete</button></td>
+          <td>
+              <button type="button" (click)="editWiki(data)" >Edit</button>
+              <button type="button" (click)="delWiki(data)" >Delete</button>
+           </td>
           <td>{{data.name}}</td>
           <td>{{data.description}}</td>
       </tr> 

@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
     {path: 'addWiki', component: AddWikiComponent},
+    {path: 'editWiki/:id', component: AddWikiComponent},
     {path: '', component: HomeComponent},
     {path: '**', redirectTo: '/', pathMatch: 'full'}
 ];
