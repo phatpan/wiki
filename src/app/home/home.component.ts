@@ -10,4 +10,7 @@ export class HomeComponent  {
   constructor(db:AngularFireDatabase) {
     this.wikiList = db.list('/wikis');
   }
+  delWiki(data){
+    this.wikiList.remove(data.$key);
+  }
 }

@@ -3,12 +3,14 @@
 <table class='table'>
   <thead>
       <tr>
+          <td>Action</td>
           <td>Name</td>
           <td>Description</td>
       </tr>
   </thead>
   <tbody>
       <tr *ngFor="let data of wikiList | async">
+          <td><button type="button" (click)="delWiki(data)" >Delete</button></td>
           <td>{{data.name}}</td>
           <td>{{data.description}}</td>
       </tr> 
