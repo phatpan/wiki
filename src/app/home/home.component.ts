@@ -9,21 +9,21 @@ import { FirebaseService } from '../service/firebase-service.service';
   styleUrls: ['./home.component.css']
 })
 
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
   wikiList: FirebaseListObservable<any[]>;
-  constructor(private router: Router, private firebaseService: FirebaseService) {}
+  constructor(private router: Router, private firebaseService: FirebaseService) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.wikiList = this.firebaseService.getWikiList();
   }
-  delWiki(data){
+  delWiki(data) {
     this.firebaseService.removeWiki(data.$key);
   }
-  editWiki(data){
+  editWiki(data) {
     this.router.navigate([`/editWiki/${data.$key}`]);
   }
-  logoutWithFacebook(){
-    this.firebaseService.logout().then(()=>{
+  logoutWithFacebook() {
+    this.firebaseService.logout().then(() => {
       this.router.navigate(["/"]);
     });
   }

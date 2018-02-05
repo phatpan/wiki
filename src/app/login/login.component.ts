@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {FirebaseService} from '../service/firebase-service.service';
-import { Router} from '@angular/router';
+import { FirebaseService } from '../service/firebase-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,16 +8,16 @@ import { Router} from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  constructor(private firebaseService: FirebaseService, private router:Router) { }
-  loginWithFacebook(){
-    this.firebaseService.loginWithFacebook().then(()=>{
-      this.router.navigate(["/home"]);
+  constructor(private firebaseService: FirebaseService, private router: Router) { }
+  loginWithFacebook() {
+    this.firebaseService.loginWithFacebook().then(() => {
+      this.router.navigate(['/home']);
     });
   }
 
-  logoutWithFacebook(){
-    this.firebaseService.logout().then(()=>{
-      this.router.navigate(["/"]);
-    })
+  logoutWithFacebook() {
+    this.firebaseService.logout().then(() => {
+      this.router.navigate(['/']);
+    });
   }
 }
