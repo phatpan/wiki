@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
 @Injectable()
 export class FirebaseService {
-  basePath: string;
-  wikiList: FirebaseListObservable<any[]>;
+  wikiList: AngularFireList<any>;
   constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth) {
-    this.basePath = '/wikis';
-   }
-
-  getWikiList(): FirebaseListObservable<any[]> {
-    this.wikiList = this.db.list(this.basePath);
-    return this.wikiList;
+    this.wikiList = db.list('wikis');
   }
 
-  getWiki(id) {
-    const wikiPath = `${this.basePath}/${id}`;
-    return this.db.object(wikiPath);
+  getWikiList(): Observable<any[]> {
+    return this.wikiList.snapshotChanges().map(actions => {
+      return actions.map(action => ({ key: action.key, value: action.payload.val() }));
+    });
+  }
+
+  getWiki(id): Observable<any[]> {
+    return this.db.list('wikis/' + id).valueChanges();
   }
 
   removeWiki(id): void {
@@ -26,19 +26,19 @@ export class FirebaseService {
   }
 
   addWiki(data) {
-    return this.db.list(this.basePath).push(data);
+    return this.wikiList.push(data);
   }
 
   editWiki(id, data) {
-    return this.db.list(this.basePath).update(id, data);
+    return this.wikiList.update(id, data);
   }
 
-  loginWithFacebook(): firebase.Promise<any> {
+  loginWithFacebook(): Promise<any> {
     const provider = new firebase.auth.FacebookAuthProvider();
     return this.afAuth.auth.signInWithPopup(provider);
   }
 
-  logout(): firebase.Promise<any> {
+  logout(): Promise<any> {
     return this.afAuth.auth.signOut();
   }
 }

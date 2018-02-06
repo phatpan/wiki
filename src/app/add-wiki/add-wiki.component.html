@@ -2,12 +2,12 @@
   <h1>{{title}}</h1>
   <form (ngSubmit)="addWiki(wikiForm)" #wikiForm="ngForm">
         <label for="name"> Name</label>
-        <input type="text" name="name" ngModel [(ngModel)]="wiki.name">
+        <input type="text" name="name" ngModel >
         <label for="description"> Description</label>
-        <textarea name="description" ngModel [(ngModel)]="wiki.description">
+        <textarea name="description" ngModel >
         </textarea>
         <button type="submit">Submit</button>
   </form>
-  <a routerLink="/">Back To Wiki List</a>
+  <a routerLink="/home">Back To Wiki List</a>
 
 
