@@ -10,7 +10,7 @@ import { FirebaseService } from '../service/firebase-service.service';
 })
 
 export class AddWikiComponent implements OnInit {
-  wiki: Wikis[] = [];
+  wiki: any= {};
   title: string;
   id: string;
   constructor(private firebaseService: FirebaseService, private route: ActivatedRoute, private router: Router) { }
@@ -32,22 +32,14 @@ export class AddWikiComponent implements OnInit {
   }
 
   getWikiByKey(id) {
-    this.firebaseService.getWiki(id).subscribe(data => {
-      data.forEach(element => {
-        this.wiki.push(element);
-      });
+    this.firebaseService.getWiki(id).subscribe((data) => {
+      this.wiki = data;
     });
-    console.log(this.wiki);
   }
 
   goToHome = () => {
     this.router.navigate(['/home']);
   }
-}
-
-export interface Wikis {
-  key: string;
-  value: string;
 }
 
 

@@ -17,8 +17,10 @@ export class FirebaseService {
     });
   }
 
-  getWiki(id): Observable<any[]> {
-    return this.db.list('wikis/' + id).valueChanges();
+  getWiki(id): Observable<any> {
+    return this.db.object('wikis/' + id).snapshotChanges().map(res => {
+      return res.payload.val();
+    });
   }
 
   removeWiki(id): void {
